@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.part2.managementwithsmartwearables.R;
-import com.example.part2.managementwithsmartwearables.data.model.Administration;
+import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ItemAdministratorMainBinding;
 
 import java.util.ArrayList;
 
 public class AdministratorAdapter extends RecyclerView.Adapter<AdministratorAdapter.AdministratorViewHolder> {
 
-    private ArrayList<Administration> administrationList;
+    private ArrayList<Work> administrationList;
 
-    public AdministratorAdapter(ArrayList<Administration> administrationList) {
+    public AdministratorAdapter(ArrayList<Work> administrationList) {
         this.administrationList = administrationList;
     }
 
@@ -61,9 +61,9 @@ public class AdministratorAdapter extends RecyclerView.Adapter<AdministratorAdap
             status = itemBinding.status;
         }
 
-        void bind(Administration administration) {
+        void bind(Work administration) {
             workerName.setText(administration.getWorker().getName());
-            workName.setText(administration.getWork().getWorkName());
+            workName.setText(administration.getWorkDetail());
             status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

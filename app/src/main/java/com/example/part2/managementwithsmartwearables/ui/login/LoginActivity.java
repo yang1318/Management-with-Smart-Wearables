@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.part2.managementwithsmartwearables.R;
 import com.example.part2.managementwithsmartwearables.databinding.ActivityLoginBinding;
 import com.example.part2.managementwithsmartwearables.ui.main.AdministratorMainActivity;
+import com.example.part2.managementwithsmartwearables.ui.main.WorkerMainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,9 +87,17 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                Intent intent = new Intent(getApplicationContext(), AdministratorMainActivity.class);
-                startActivity(intent);
-                finish();
+                int admin = 2;
+                if (admin == 1) {
+                    Intent intent = new Intent(getApplicationContext(), AdministratorMainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), WorkerMainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

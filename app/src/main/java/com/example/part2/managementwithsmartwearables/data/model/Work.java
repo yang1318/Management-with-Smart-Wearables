@@ -1,40 +1,60 @@
 package com.example.part2.managementwithsmartwearables.data.model;
 
 public class Work {
-    int id;
-    String workName;
-    int status;
+    int idx;
+    User worker;
+    String workDetail;
+    int approve;
+    int workStatus;
 
     public Work() {
     }
 
-    public Work(int id, String workName, int status) {
-        this.id = id;
-        this.workName = workName;
-        this.status = status;
+    public Work(int idx, User worker, String workDetail, int approve, int workStatus) {
+        this.idx = idx;
+        this.worker = worker;
+        this.workDetail = workDetail;
+        this.approve = approve;
+        this.workStatus = workStatus;
     }
 
-    public int getId() {
-        return id;
+    public int getIdx() {
+        return idx;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
-    public String getWorkName() {
-        return workName;
+    public User getWorker() {
+        return worker;
     }
 
-    public void setWorkName(String workName) {
-        this.workName = workName;
+    public void setWorker(User worker) {
+        this.worker = worker;
     }
 
-    public int getStatus() {
-        return status;
+    public String getWorkDetail() {
+        return workDetail;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setWorkDetail(String workDetail) {
+        this.workDetail = workDetail;
+    }
+
+    public int getApprove() {
+        return approve;
+    }
+
+    public void setApprove(int approve) {
+        this.approve = approve;
+    }
+
+    public int getWorkStatus() {
+        return workStatus;
+    }
+
+    public void setWorkStatus(int workStatus) {
+        this.workStatus = workStatus;
     }
 }

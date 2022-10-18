@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 
-import com.example.part2.managementwithsmartwearables.data.model.Administration;
+import com.example.part2.managementwithsmartwearables.data.model.User;
 import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.data.model.Worker;
 import com.example.part2.managementwithsmartwearables.databinding.ActivityAdministratorMainBinding;
@@ -33,8 +31,8 @@ public class AdministratorMainActivity extends AppCompatActivity {
         final Button monitoring = binding.monitoring;
         final RecyclerView recyclerView = binding.administrationList;
 
-        ArrayList<Administration> administrations = new ArrayList<>();
-        administrations.add(new Administration(new Worker(1, "양선아"), new Work(1, "질소처리", 1)));
+        ArrayList<Work> administrations = new ArrayList<>();
+        administrations.add(new Work(1, new User(1, "user1", "양선아", "profile.jpg"), "질소 주입", 1, 2));
         recyclerView.setLayoutManager(new LinearLayoutManager(AdministratorMainActivity.this));
         recyclerView.setAdapter(new AdministratorAdapter(administrations));
 
