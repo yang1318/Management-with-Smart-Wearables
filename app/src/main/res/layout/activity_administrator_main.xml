@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:paddingHorizontal="40dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="25dp"
+    tools:context=".ui.main.AdministratorMainActivity">
+
+    <Button
+        android:id="@+id/qrcode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/image_customise_qrcode"
+        android:text="@string/check_qr_information_button"
+        android:textColor="@color/black"
+
+        app:layout_constraintEnd_toStartOf="@+id/workList"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/administrator_text"
+        android:layout_marginEnd="25dp"
+        android:paddingVertical="13dp"/>
+
+    <Button
+        android:id="@+id/workList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/image_customise_list"
+        android:text="@string/work_status_button"
+        android:textColor="@color/black"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintStart_toEndOf="@+id/qrcode"
+        app:layout_constraintTop_toBottomOf="@id/administrator_text"
+        android:paddingVertical="13dp"
+        />
+
+    <Button
+        android:id="@+id/monitoring"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/image_customise_wall_mount_camera"
+        android:text="@string/monitoring_button"
+        android:textColor="@color/black"
+
+        app:layout_constraintEnd_toStartOf="@+id/workList"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrcode"
+        android:layout_marginEnd="25dp"
+        android:paddingVertical="13dp"/>
+
+    <TextView
+        android:id="@+id/appTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:text="@string/app_title"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/administrator_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/administrator"
+        android:textStyle="bold"
+        android:textColor="@color/darkblue"
+        android:textSize="20sp"
+        app:layout_goneMarginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appTitleText" />
+
+    <TextView
+        android:id="@+id/approvalRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="@string/approval_request"
+        android:textColor="@color/darkblue"
+        android:textSize="20sp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/monitoring" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintTop_toBottomOf="@id/approvalRequest"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:padding="15dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/administrationList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
