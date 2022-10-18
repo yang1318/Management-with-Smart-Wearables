@@ -20,6 +20,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.main.WorkerMainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false">
             <meta-data
