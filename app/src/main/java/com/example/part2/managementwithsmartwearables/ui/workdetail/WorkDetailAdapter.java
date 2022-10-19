@@ -2,7 +2,6 @@ package com.example.part2.managementwithsmartwearables.ui.workdetail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.part2.managementwithsmartwearables.R;
 import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ItemWorkDetailBinding;
-import com.example.part2.managementwithsmartwearables.ui.login.LoginActivity;
 import com.example.part2.managementwithsmartwearables.ui.workerdetail.WorkerDetailActivity;
 
 import java.util.ArrayList;
@@ -70,9 +67,9 @@ public class WorkDetailAdapter extends RecyclerView.Adapter<WorkDetailAdapter.Wo
             layout = itemBinding.entireLayout;
         }
 
-        void bind(Work administration) {
-            workerName.setText(administration.getWorker().getName());
-            workName.setText(administration.getWorkDetail());
+        void bind(Work work) {
+            workerName.setText(work.getWorker().getName());
+            workName.setText(work.getWorkDetail());
             profileImage.setImageResource(R.drawable.character_man); // TODO : 이미지 변경돼야함
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
