@@ -1,6 +1,7 @@
 package com.example.part2.managementwithsmartwearables.ui.workdetail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.part2.managementwithsmartwearables.R;
 import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ItemWorkDetailBinding;
+import com.example.part2.managementwithsmartwearables.ui.login.LoginActivity;
+import com.example.part2.managementwithsmartwearables.ui.workerdetail.WorkerDetailActivity;
 
 import java.util.ArrayList;
 
@@ -75,7 +78,8 @@ public class WorkDetailAdapter extends RecyclerView.Adapter<WorkDetailAdapter.Wo
                 @Override
                 public void onClick(View v) {
                     // TODO : 작업자 상세 액티비티로 이동
-                    Log.d("WorkDetailAdapter","layout 클릭됨");
+                    Intent intent = new Intent(itemView.getContext(), WorkerDetailActivity.class);
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }

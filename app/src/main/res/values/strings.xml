@@ -15,8 +15,11 @@
     <string name="approval_request">승인요청</string>
     <string name="work_list">작업리스트</string>
     <string name="work_status_list">작업현황 리스트</string>
+    <string name="worker_detail_list">작업자별 상세 리스트</string>
     <string name="check_qr_information_button">정보확인</string>
     <string name="monitoring_button">안전모니터링</string>
     <string name="work_status_button">작업현황</string>
     <string name="status_approval_request">승인 요청 중</string>
+    <string name="camera">실시간</string>
+    <string name="approve">승인</string>
 </resources>
