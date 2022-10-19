@@ -1,15 +1,12 @@
 package com.example.part2.managementwithsmartwearables.ui.workerdetail;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,18 +14,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.part2.managementwithsmartwearables.R;
-import com.example.part2.managementwithsmartwearables.data.model.Work;
-import com.example.part2.managementwithsmartwearables.databinding.ItemAdministratorMainBinding;
+import com.example.part2.managementwithsmartwearables.data.model.WorkDetailItem;
 import com.example.part2.managementwithsmartwearables.databinding.ItemWorkerDetailBinding;
 
 import java.util.ArrayList;
 
 public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapter.WorkerDetailViewHolder> {
 
-    private ArrayList<Work> workList;
+    private ArrayList<WorkDetailItem> workDetailList;
 
-    public WorkerDetailAdapter(ArrayList<Work> workList) {
-        this.workList = workList;
+    public WorkerDetailAdapter(ArrayList<WorkDetailItem> workDetailList) {
+        this.workDetailList = workDetailList;
     }
 
     @NonNull
@@ -44,12 +40,12 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
 
     @Override
     public void onBindViewHolder(@NonNull WorkerDetailViewHolder holder, int position) {
-        holder.bind(workList.get(position));
+        holder.bind(workDetailList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return workList.size();
+        return workDetailList.size();
     }
 
     public class WorkerDetailViewHolder extends RecyclerView.ViewHolder {
@@ -76,10 +72,16 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
             buttonLayout = itemBinding.buttonLayout;
         }
 
-        void bind(Work work) {
-            workerName.setText(String.valueOf(work.getIdx()));
-            workName.setText(work.getWorkDetail());
-            switch (work.getWorkStatus()) {
+        void bind(WorkDetailItem workDetailItem) {
+            workerName.setText(String.valueOf(workDetailItem.getIdx()));
+            workName.setText(workDetailItem.getWorkDetail());
+
+            if (workDetailItem.getExpended())
+                buttonLayout.setVisibility(View.VISIBLE);
+            else
+                buttonLayout.setVisibility(View.GONE);
+
+            switch (workDetailItem.getWorkStatus()) {
                 case 1:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f4554b"))); // red
                     status.setText("작업중");
@@ -97,6 +99,20 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
                     status.setText("작업대기");
                     break;
             }
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (workDetailItem.getExpended()) {
+                        workDetailItem.setExpended(false);
+                    }
+                    else {
+                        workDetailItem.setExpended(true);
+                    }
+                    notifyDataSetChanged();
+                }
+            });
+
             camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
