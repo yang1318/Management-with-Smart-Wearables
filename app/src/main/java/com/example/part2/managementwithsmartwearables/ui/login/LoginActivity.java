@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                int admin = 2;
+                int admin = 1;
                 if (admin == 1) {
                     Intent intent = new Intent(getApplicationContext(), AdministratorMainActivity.class);
                     startActivity(intent);

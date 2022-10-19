@@ -11,8 +11,10 @@
     <string name="login_failed">"Login failed"</string>
     <string name="app_title">스마트 웨어러블\n연동 작업관리</string>
     <string name="administrator">관리자</string>
+    <string name="worker">작업자</string>
     <string name="approval_request">승인요청</string>
     <string name="work_list">작업리스트</string>
+    <string name="work_status_list">작업현황 리스트</string>
     <string name="check_qr_information_button">정보확인</string>
     <string name="monitoring_button">안전모니터링</string>
     <string name="work_status_button">작업현황</string>
