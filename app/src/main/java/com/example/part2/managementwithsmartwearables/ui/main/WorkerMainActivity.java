@@ -28,7 +28,7 @@ public class WorkerMainActivity extends AppCompatActivity {
         final Button qrcodeButton = binding.qrcode;
         final RecyclerView recyclerView = binding.workList;
 
-        ArrayList<Work> workList = new ArrayList<>();
+        ArrayList<Work> workList = new ArrayList<>(); // TODO API
         workList.add(new Work(1, new User(1, "user1", "테스트", "profile.jpg"), "작업내용1", 1, 1));
         workList.add(new Work(2, new User(1, "user1", "테스트", "profile.jpg"), "작업내용2", 1, 2));
         workList.add(new Work(3, new User(1, "user1", "테스트", "profile.jpg"), "작업내용3", 1, 3));
@@ -50,7 +50,7 @@ public class WorkerMainActivity extends AppCompatActivity {
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : QR코드 액티비티와 연결
+                //TODO QR : QR코드 액티비티와 연결
             }
         });
 

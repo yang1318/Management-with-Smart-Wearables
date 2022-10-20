@@ -67,7 +67,7 @@ public class AdministratorAdapter extends RecyclerView.Adapter<AdministratorAdap
             status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO : 버튼 클릭시 동작, intent하기
+                    // TODO API : 버튼 클릭시 동작, intent하기
                 }
             });
         }

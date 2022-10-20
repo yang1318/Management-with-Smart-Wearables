@@ -26,7 +26,7 @@ public class WorkDetailActivity extends AppCompatActivity {
 
         final ImageButton backButton = binding.backButton;
         final RecyclerView recyclerView = binding.workDetailList;
-        ArrayList<Work> workList = new ArrayList<>();
+        ArrayList<Work> workList = new ArrayList<>(); // TODO API
         workList.add(new Work(1, new User(1, "user1", "테스트", "profile.jpg"), "작업내용1", 1, 1));
         workList.add(new Work(2, new User(1, "user1", "테스트", "profile.jpg"), "작업내용2", 1, 2));
         workList.add(new Work(3, new User(1, "user1", "테스트", "profile.jpg"), "작업내용3", 1, 3));

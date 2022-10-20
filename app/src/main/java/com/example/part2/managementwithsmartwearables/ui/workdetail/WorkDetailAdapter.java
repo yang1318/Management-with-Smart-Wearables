@@ -70,11 +70,11 @@ public class WorkDetailAdapter extends RecyclerView.Adapter<WorkDetailAdapter.Wo
         void bind(Work work) {
             workerName.setText(work.getWorker().getName());
             workName.setText(work.getWorkDetail());
-            profileImage.setImageResource(R.drawable.character_man); // TODO : 이미지 변경돼야함
+            profileImage.setImageResource(R.drawable.character_man); // TODO API : 이미지 변경돼야함
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO : 작업자 상세 액티비티로 이동
+                    // TODO API : 작업자 상세 액티비티로 이동
                     Intent intent = new Intent(itemView.getContext(), WorkerDetailActivity.class);
                     itemView.getContext().startActivity(intent);
                 }

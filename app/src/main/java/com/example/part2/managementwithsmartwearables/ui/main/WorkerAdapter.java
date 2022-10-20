@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.part2.managementwithsmartwearables.R;
@@ -66,7 +65,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerView
         void bind(Work work) {
             workerIndex.setText(String.valueOf(work.getIdx()));
             workName.setText(work.getWorkDetail());
-            switch (work.getWorkStatus()) {
+            switch (work.getWorkStatus()) { // TODO API
                 case 1:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f4554b"))); // red
                     status.setText("작업중");

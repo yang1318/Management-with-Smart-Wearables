@@ -32,7 +32,7 @@ public class AdministratorMainActivity extends AppCompatActivity {
         final Button monitoring = binding.monitoring;
         final RecyclerView recyclerView = binding.administrationList;
 
-        ArrayList<Work> administrations = new ArrayList<>();
+        ArrayList<Work> administrations = new ArrayList<>(); // TODO API
         administrations.add(new Work(1, new User(1, "user1", "작업자1", "profile.jpg"), "작업내용1", 1, 1));
         administrations.add(new Work(2, new User(1, "user2", "작업자2", "profile.jpg"), "작업내용2", 1, 2));
         administrations.add(new Work(3, new User(1, "user3", "작업자2", "profile.jpg"), "작업내용3", 1, 3));
@@ -54,7 +54,7 @@ public class AdministratorMainActivity extends AppCompatActivity {
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : QR코드 액티비티와 연결
+                //TODO QR : QR코드 액티비티와 연결
             }
         });
 
@@ -62,6 +62,7 @@ public class AdministratorMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WorkDetailActivity.class);
+                // TODO API
                 startActivity(intent);
             }
         });
@@ -69,7 +70,7 @@ public class AdministratorMainActivity extends AppCompatActivity {
         monitoring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : 실기간 모니터링 액티비티와 연결
+                //TODO CAMERA : 실기간 모니터링 액티비티와 연결
             }
         });
 

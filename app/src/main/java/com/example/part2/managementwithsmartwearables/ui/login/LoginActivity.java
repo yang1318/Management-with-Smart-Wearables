@@ -1,19 +1,9 @@
 package com.example.part2.managementwithsmartwearables.ui.login;
 
 import android.app.Activity;
-
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -24,6 +14,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.part2.managementwithsmartwearables.R;
 import com.example.part2.managementwithsmartwearables.databinding.ActivityLoginBinding;
@@ -87,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                int admin = 1;
+                int admin = 1; // TODO API
                 if (admin == 1) {
                     Intent intent = new Intent(getApplicationContext(), AdministratorMainActivity.class);
                     startActivity(intent);
@@ -145,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show(); // TODO API
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

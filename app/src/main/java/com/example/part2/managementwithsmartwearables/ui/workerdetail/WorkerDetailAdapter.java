@@ -116,13 +116,13 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
             camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO : 실시간 모니터링 activity로 인텐트
+                    // TODO CAMERA : 실시간 모니터링 activity로 인텐트
                 }
             });
             approve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO : 승인 api 사용
+                    // TODO API : 승인 api 사용
                 }
             });
         }
