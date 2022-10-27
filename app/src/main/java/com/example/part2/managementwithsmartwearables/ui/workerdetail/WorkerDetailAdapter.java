@@ -76,42 +76,41 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
             workerName.setText(String.valueOf(workDetailItem.getIdx()));
             workName.setText(workDetailItem.getWorkDetail());
 
-            if (workDetailItem.getExpended())
-                buttonLayout.setVisibility(View.VISIBLE);
-            else
-                buttonLayout.setVisibility(View.GONE);
-
             switch (workDetailItem.getWorkStatus()) {
                 case 1:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f4554b"))); // red
                     status.setText("작업중");
+                    buttonLayout.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2fcb80"))); // green
                     status.setText("작업시작");
+                    buttonLayout.setVisibility(View.GONE);
                     break;
                 case 3:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2fa5cb"))); // blue
                     status.setText("작업완료");
+                    buttonLayout.setVisibility(View.GONE);
                     break;
                 case 4:
                     status.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8d8d8d"))); // gray
                     status.setText("작업대기");
+                    buttonLayout.setVisibility(View.GONE);
                     break;
             }
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (workDetailItem.getExpended()) {
-                        workDetailItem.setExpended(false);
-                    }
-                    else {
-                        workDetailItem.setExpended(true);
-                    }
-                    notifyDataSetChanged();
-                }
-            });
+//            layout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (workDetailItem.getExpended()) {
+//                        workDetailItem.setExpended(false);
+//                    }
+//                    else {
+//                        workDetailItem.setExpended(true);
+//                    }
+//                    notifyDataSetChanged();
+//                }
+//            });
 
             camera.setOnClickListener(new View.OnClickListener() {
                 @Override
