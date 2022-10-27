@@ -1,6 +1,7 @@
 package com.example.part2.managementwithsmartwearables.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.part2.managementwithsmartwearables.R;
 import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ItemAdministratorMainBinding;
+import com.example.part2.managementwithsmartwearables.ui.workerdetail.WorkerDetailActivity;
 
 import java.util.ArrayList;
 
@@ -67,7 +69,8 @@ public class AdministratorAdapter extends RecyclerView.Adapter<AdministratorAdap
             status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO API : 버튼 클릭시 동작, intent하기
+                    Intent intent = new Intent(itemView.getContext(), WorkerDetailActivity.class);
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }
