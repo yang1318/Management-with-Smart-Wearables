@@ -1,9 +1,11 @@
 package com.example.part2.managementwithsmartwearables.ui.main;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,12 +16,23 @@ import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ActivityAdministratorMainBinding;
 import com.example.part2.managementwithsmartwearables.ui.workdetail.WorkDetailActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AdministratorMainActivity extends AppCompatActivity {
 
     private ActivityAdministratorMainBinding binding;
-
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,26 +43,10 @@ public class AdministratorMainActivity extends AppCompatActivity {
         final Button qrcodeButton = binding.qrcode;
         final Button workListButton = binding.workList;
         final Button monitoring = binding.monitoring;
-        final RecyclerView recyclerView = binding.administrationList;
+        recyclerView = binding.administrationList;
 
-        ArrayList<Work> administrations = new ArrayList<>(); // TODO API
-        administrations.add(new Work(1, new User(1, "user1", "작업자1", "profile.jpg"), "작업내용1", 1, 1));
-        administrations.add(new Work(2, new User(1, "user2", "작업자2", "profile.jpg"), "작업내용2", 1, 2));
-        administrations.add(new Work(3, new User(1, "user3", "작업자2", "profile.jpg"), "작업내용3", 1, 3));
-        administrations.add(new Work(4, new User(1, "user4", "작업자3", "profile.jpg"), "작업내용4", 1, 4));
-        administrations.add(new Work(5, new User(1, "user5", "작업자4", "profile.jpg"), "작업내용5", 1, 2));
-        administrations.add(new Work(6, new User(1, "user6", "테스트", "profile.jpg"), "작업내용6", 1, 1));
-        administrations.add(new Work(7, new User(1, "user7", "테스트", "profile.jpg"), "작업내용7", 1, 2));
-        administrations.add(new Work(8, new User(1, "user1", "테스트", "profile.jpg"), "작업내용8", 1, 3));
-        administrations.add(new Work(9, new User(1, "user1", "테스트", "profile.jpg"), "작업내용9", 1, 2));
-        administrations.add(new Work(10, new User(1, "user1", "테스트", "profile.jpg"), "작업내용10", 1, 4));
-        administrations.add(new Work(11, new User(1, "user1", "테스트", "profile.jpg"), "작업내용11", 1, 2));
-        administrations.add(new Work(12, new User(1, "user1", "테스트", "profile.jpg"), "작업내용12", 1, 2));
-        administrations.add(new Work(13, new User(1, "user1", "테스트", "profile.jpg"), "작업내용13", 1, 1));
-        administrations.add(new Work(14, new User(1, "user1", "테스트", "profile.jpg"), "작업내용14", 1, 2));
-        administrations.add(new Work(15, new User(1, "user1", "테스트", "profile.jpg"), "작업내용15", 1, 3));
-        recyclerView.setLayoutManager(new LinearLayoutManager(AdministratorMainActivity.this));
-        recyclerView.setAdapter(new AdministratorAdapter(administrations));
+
+        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_MainList", "1","1");
 
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +70,59 @@ public class AdministratorMainActivity extends AppCompatActivity {
                 //TODO CAMERA : 실기간 모니터링 액티비티와 연결
             }
         });
+    }
 
+    private class HttpAsyncTask extends AsyncTask<String, Void, ArrayList<Work>> {
 
+        OkHttpClient client = new OkHttpClient();
+
+        @Override
+        protected ArrayList<Work> doInBackground(String... params) {
+            ArrayList<Work> administrations = new ArrayList<>();
+            String strUrl = params[0];
+            try {
+                JSONObject input = new JSONObject();
+                input.put("author", params[1]);
+                input.put("member_idx", params[2]);
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                RequestBody body = RequestBody.create(input.toString(), JSON);
+                Request request = new Request.Builder()
+                        .url(strUrl)
+                        .post(body)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                if (jsonObject.getString("result").equals("false")) {
+                    Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
+                } else {
+                    JSONArray jsonArray = new JSONArray(jsonObject.getString("content"));
+                    for (int i = 0; i < jsonArray.length() ; i++) {
+                        JSONObject workObject = jsonArray.getJSONObject(i);
+                        int idx = workObject.getInt("idx");
+                        String name = workObject.getString("name");
+                        String profile = workObject.getString("profile");
+                        String workDetail = workObject.getString("work_detail");
+                        int approve = workObject.getInt("approve");
+                        administrations.add(new Work(idx, new User(1, name, name, profile), workDetail, approve, 0));
+                    }
+                }
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return administrations;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Work> administrations) {
+            super.onPostExecute(administrations);
+            if (administrations != null) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(AdministratorMainActivity.this));
+                recyclerView.setAdapter(new AdministratorAdapter(new ArrayList<Work>(administrations)));
+            }
+        }
     }
 }

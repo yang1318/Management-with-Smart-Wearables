@@ -22,4 +22,16 @@ public class WorkDetailItem extends Work{
     public void setExpended(Boolean expended) {
         this.expended = expended;
     }
+
+    @Override
+    public String toString() {
+        return "WorkDetailItem{" +
+                "idx=" + idx +
+                ", worker=" + worker +
+                ", workDetail='" + workDetail + '\'' +
+                ", approve=" + approve +
+                ", workStatus=" + workStatus +
+                ", expended=" + expended +
+                '}';
+    }
 }

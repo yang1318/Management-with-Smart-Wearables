@@ -57,4 +57,15 @@ public class Work {
     public void setWorkStatus(int workStatus) {
         this.workStatus = workStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Work{" +
+                "idx=" + idx +
+                ", worker=" + worker +
+                ", workDetail='" + workDetail + '\'' +
+                ", approve=" + approve +
+                ", workStatus=" + workStatus +
+                '}';
+    }
 }

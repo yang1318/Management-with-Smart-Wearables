@@ -1,8 +1,10 @@
 package com.example.part2.managementwithsmartwearables.ui.main;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,12 +14,23 @@ import com.example.part2.managementwithsmartwearables.data.model.User;
 import com.example.part2.managementwithsmartwearables.data.model.Work;
 import com.example.part2.managementwithsmartwearables.databinding.ActivityWorkerMainBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class WorkerMainActivity extends AppCompatActivity {
 
     private ActivityWorkerMainBinding binding;
-
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,26 +39,9 @@ public class WorkerMainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         final Button qrcodeButton = binding.qrcode;
-        final RecyclerView recyclerView = binding.workList;
+        recyclerView = binding.workList;
 
-        ArrayList<Work> workList = new ArrayList<>(); // TODO API
-        workList.add(new Work(1, new User(1, "user1", "테스트", "profile.jpg"), "작업내용1", 1, 1));
-        workList.add(new Work(2, new User(1, "user1", "테스트", "profile.jpg"), "작업내용2", 1, 2));
-        workList.add(new Work(3, new User(1, "user1", "테스트", "profile.jpg"), "작업내용3", 1, 3));
-        workList.add(new Work(4, new User(1, "user1", "테스트", "profile.jpg"), "작업내용4", 1, 4));
-        workList.add(new Work(5, new User(1, "user1", "테스트", "profile.jpg"), "작업내용5", 1, 2));
-        workList.add(new Work(6, new User(1, "user1", "테스트", "profile.jpg"), "작업내용6", 1, 1));
-        workList.add(new Work(7, new User(1, "user1", "테스트", "profile.jpg"), "작업내용7", 1, 2));
-        workList.add(new Work(8, new User(1, "user1", "테스트", "profile.jpg"), "작업내용8", 1, 3));
-        workList.add(new Work(9, new User(1, "user1", "테스트", "profile.jpg"), "작업내용9", 1, 2));
-        workList.add(new Work(10, new User(1, "user1", "테스트", "profile.jpg"), "작업내용10", 1, 4));
-        workList.add(new Work(11, new User(1, "user1", "테스트", "profile.jpg"), "작업내용11", 1, 2));
-        workList.add(new Work(12, new User(1, "user1", "테스트", "profile.jpg"), "작업내용12", 1, 2));
-        workList.add(new Work(13, new User(1, "user1", "테스트", "profile.jpg"), "작업내용13", 1, 1));
-        workList.add(new Work(14, new User(1, "user1", "테스트", "profile.jpg"), "작업내용14", 1, 2));
-        workList.add(new Work(15, new User(1, "user1", "테스트", "profile.jpg"), "작업내용15", 1, 3));
-        recyclerView.setLayoutManager(new LinearLayoutManager(WorkerMainActivity.this));
-        recyclerView.setAdapter(new WorkerAdapter(workList));
+        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_w_WorkList", "2");
 
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +49,58 @@ public class WorkerMainActivity extends AppCompatActivity {
                 //TODO QR : QR코드 액티비티와 연결
             }
         });
+    }
 
+    private class HttpAsyncTask extends AsyncTask<String, Void, ArrayList<Work>> {
+
+        OkHttpClient client = new OkHttpClient();
+
+        @Override
+        protected ArrayList<Work> doInBackground(String... params) {
+            ArrayList<Work> workList = new ArrayList<>();
+            String strUrl = params[0];
+            try {
+                JSONObject input = new JSONObject();
+                input.put("user_idx", params[1]);
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                RequestBody body = RequestBody.create(input.toString(), JSON);
+                Request request = new Request.Builder()
+                        .url(strUrl)
+                        .post(body)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                if (jsonObject.getString("result").equals("false")) {
+                    Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
+                } else {
+                    JSONArray jsonArray = new JSONArray(jsonObject.getString("content"));
+                    for (int i = 0; i < jsonArray.length() ; i++) {
+                        JSONObject workObject = jsonArray.getJSONObject(i);
+                        int idx = workObject.getInt("idx");
+                        String name = workObject.getString("name");
+                        String profile = workObject.getString("profile");
+                        String workDetail = workObject.getString("work_detail");
+                        int workStatus = workObject.getInt("work_status");
+                        workList.add(new Work(idx, new User(1, name, name, profile), workDetail, 0, workStatus));
+                    }
+                }
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return workList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Work> workList) {
+            super.onPostExecute(workList);
+            if (workList != null) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(WorkerMainActivity.this));
+                recyclerView.setAdapter(new WorkerAdapter(workList));
+            }
+        }
     }
 }
