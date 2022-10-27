@@ -59,13 +59,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="64dp"
+        android:background="@color/light_gray1"
+        android:textColor="@color/light_gray2"
         android:enabled="false"
         android:text="@string/action_sign_in"
         android:layout_marginStart="30dp"

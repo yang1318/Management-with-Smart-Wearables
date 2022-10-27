@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ManagementWithSmartWearables"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:networkSecurityConfig="@xml/network_security_config"
+        >
+
         <activity
             android:name=".ui.workerdetail.WorkerDetailActivity"
             android:exported="false">
@@ -47,6 +52,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+<!--        <activity-->
+<!--            android:name=".ui.splash.SplashActivity"-->
+<!--            android:exported="false">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
