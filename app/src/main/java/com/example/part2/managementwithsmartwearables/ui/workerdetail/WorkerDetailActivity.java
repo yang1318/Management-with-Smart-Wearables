@@ -3,8 +3,11 @@ package com.example.part2.managementwithsmartwearables.ui.workerdetail;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +36,7 @@ public class WorkerDetailActivity extends AppCompatActivity {
     private ActivityWorkerDetailBinding binding;
     RecyclerView recyclerView;
     String userIndex;
+    String workerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +44,14 @@ public class WorkerDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         final ImageButton backButton = binding.backButton;
+        final TextView nameText = binding.workerName;
         recyclerView = binding.workerDetailList;
 
         Intent intent = getIntent();
         userIndex = intent.getStringExtra("userIndex");
+        workerName = intent.getStringExtra("userName");
+        nameText.setText(workerName);
+
         new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_WorkList", userIndex);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +83,15 @@ public class WorkerDetailActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(response.body().string());
                 if (jsonObject.getString("result").equals("false")) {
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    String errorMessage = jsonObject.getString("content");
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                        }
+                    }, 0);
+
                 } else {
                     JSONArray jsonArray = new JSONArray(jsonObject.getString("content"));
                     for (int i = 0; i < jsonArray.length(); i++) {

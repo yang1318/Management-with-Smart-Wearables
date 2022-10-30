@@ -74,9 +74,9 @@ public class WorkDetailAdapter extends RecyclerView.Adapter<WorkDetailAdapter.Wo
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO API : 작업자 상세 액티비티로 이동
                     Intent intent = new Intent(itemView.getContext(), WorkerDetailActivity.class);
-                    intent.putExtra("userIndex", work.getWorker().getUserIdx());
+                    intent.putExtra("userIndex", String.valueOf(work.getWorker().getUserIdx()));
+                    intent.putExtra("userName", work.getWorker().getName());
                     itemView.getContext().startActivity(intent);
                 }
             });

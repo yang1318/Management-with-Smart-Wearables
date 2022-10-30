@@ -70,7 +70,8 @@ public class AdministratorAdapter extends RecyclerView.Adapter<AdministratorAdap
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), WorkerDetailActivity.class);
-                    intent.putExtra("userIndex", String.valueOf(administration.getIdx()));
+                    intent.putExtra("userIndex", String.valueOf(administration.getWorker().getUserIdx()));
+                    intent.putExtra("userName", administration.getWorker().getName());
                     itemView.getContext().startActivity(intent);
                 }
             });

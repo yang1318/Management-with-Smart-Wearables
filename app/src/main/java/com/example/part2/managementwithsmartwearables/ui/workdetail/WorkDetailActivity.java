@@ -3,6 +3,8 @@ package com.example.part2.managementwithsmartwearables.ui.workdetail;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ public class WorkDetailActivity extends AppCompatActivity {
     private ActivityWorkDetailBinding binding;
     RecyclerView recyclerView;
     String adminIndex;
+    //String workerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +44,12 @@ public class WorkDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         final ImageButton backButton = binding.backButton;
+        //final TextView workerText = binding.workerText;
         recyclerView = binding.workDetailList;
 
         Intent intent = getIntent();
         adminIndex = intent.getStringExtra("index");
+        //workerName = intent.getStringExtra("userName");
 
         new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_WorkerList", adminIndex);
 
@@ -77,7 +82,14 @@ public class WorkDetailActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(response.body().string());
                 if (jsonObject.getString("result").equals("false")) {
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    String errorMessage = jsonObject.getString("content");
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                        }
+                    }, 0);
                 } else {
                     JSONArray jsonArray = new JSONArray(jsonObject.getString("content"));
                     for (int i = 0; i < jsonArray.length() ; i++) {
