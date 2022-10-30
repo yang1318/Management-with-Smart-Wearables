@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -111,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 Response response = client.newCall(request).execute();
 
-                Log.d("API TEST", response.body().string());
                 JSONObject jsonObject = new JSONObject(response.body().string());
                 if (jsonObject.getString("result").equals("false")) {
                     Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
