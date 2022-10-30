@@ -143,6 +143,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     Intent intent = new Intent(getApplicationContext(), WorkerMainActivity.class);
+                    intent.putExtra("name", result.getName());
+                    intent.putExtra("index", String.valueOf(result.getUserIdx()));
                     startActivity(intent);
                     finish();
                 }

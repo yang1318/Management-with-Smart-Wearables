@@ -21,7 +21,7 @@
         android:textColor="@color/black"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/administrator_text"
+        app:layout_constraintTop_toBottomOf="@id/workerNameText"
         android:layout_marginEnd="25dp"
         android:paddingVertical="13dp"/>
 
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/administrator_text"
+        android:id="@+id/workerNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
