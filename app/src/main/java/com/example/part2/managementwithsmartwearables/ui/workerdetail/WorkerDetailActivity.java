@@ -1,5 +1,6 @@
 package com.example.part2.managementwithsmartwearables.ui.workerdetail;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ public class WorkerDetailActivity extends AppCompatActivity {
 
     private ActivityWorkerDetailBinding binding;
     RecyclerView recyclerView;
+    String userIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,9 @@ public class WorkerDetailActivity extends AppCompatActivity {
         final ImageButton backButton = binding.backButton;
         recyclerView = binding.workerDetailList;
 
-        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_WorkList", "2");
+        Intent intent = getIntent();
+        userIndex = intent.getStringExtra("userIndex");
+        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_WorkList", userIndex);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

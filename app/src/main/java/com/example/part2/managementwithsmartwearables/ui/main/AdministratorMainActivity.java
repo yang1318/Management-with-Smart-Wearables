@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,8 @@ import okhttp3.Response;
 public class AdministratorMainActivity extends AppCompatActivity {
 
     private ActivityAdministratorMainBinding binding;
+    private String adminName;
+    private String adminIndex;
     RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,15 @@ public class AdministratorMainActivity extends AppCompatActivity {
         final Button qrcodeButton = binding.qrcode;
         final Button workListButton = binding.workList;
         final Button monitoring = binding.monitoring;
+        final TextView adminNameText = binding.administratorText;
         recyclerView = binding.administrationList;
 
+        Intent intent = getIntent();
+        adminName = intent.getStringExtra("name");
+        adminIndex = intent.getStringExtra("index");
 
-        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_MainList", "1","1");
+        adminNameText.setText(adminName);
+        new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_MainList", "1", adminIndex);
 
         qrcodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +67,7 @@ public class AdministratorMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WorkDetailActivity.class);
-                // TODO API
+                intent.putExtra("index", adminIndex);
                 startActivity(intent);
             }
         });

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -35,6 +37,7 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
+    ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final AppCompatButton loginButton = (AppCompatButton) binding.login;
-        final ProgressBar loadingProgressBar = binding.loading;
+        loadingProgressBar = binding.loading;
 
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
@@ -112,7 +115,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(response.body().string());
                 if (jsonObject.getString("result").equals("false")) {
-                    Toast.makeText(getApplicationContext(), jsonObject.getString("content"), Toast.LENGTH_LONG).show();
+                    String errorMessage = jsonObject.getString("content");
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                            loadingProgressBar.setVisibility(View.GONE);
+                        }
+                    }, 0);
+
                     return falseUser;
                 } else {
                     JSONObject workObject = new JSONObject(jsonObject.getString("content"));
@@ -138,6 +150,8 @@ public class LoginActivity extends AppCompatActivity {
             if (result.getUserIdx() >= 0) {
                 if (admin == 1) {
                     Intent intent = new Intent(getApplicationContext(), AdministratorMainActivity.class);
+                    intent.putExtra("name", result.getName());
+                    intent.putExtra("index", String.valueOf(result.getUserIdx()));
                     startActivity(intent);
                     finish();
                 }
@@ -152,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
             }
         }
     }

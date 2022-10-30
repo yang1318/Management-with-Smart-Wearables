@@ -133,7 +133,7 @@ public class WorkerDetailAdapter extends RecyclerView.Adapter<WorkerDetailAdapte
             approve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_reject", "2", "1");
+                    new HttpAsyncTask().execute("http://renewal.kiotcom.co.kr/index.php/input/Gdstar_process_c/w_a_reject", String.valueOf(workDetailItem.getIdx()), "1");
 
                     Handler handler = new Handler();
                     ProgressDialog progressDialog = new ProgressDialog(itemView.getContext());
